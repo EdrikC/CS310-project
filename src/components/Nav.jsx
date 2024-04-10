@@ -8,7 +8,7 @@ const Nav = () => {
     <header className='padding-x py-8 z-50 absolute w-full bg-black text-white sticky top-0 -mt-40'>
         <nav className='flex justify-between items-center max-container'>
             <a href='#home'><img src={logo} alt="logo" className='min-h-min w-64'/></a>
-            <ul className='flex-1 flex justify-center items-center gap-16 max-lg:hidden'>
+            <ul className='flex-1 flex justify-center items-center gap-16 max-lg:hidden pl-80'>
                 {navLinks.map((item) => (
                     <li key={item.label}>
                         <a
