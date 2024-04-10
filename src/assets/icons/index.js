@@ -10,6 +10,7 @@ import shieldTick from './shield-tick.svg'
 import star from './star.svg'
 import truckFast from './truck-fast.svg'
 import twitter from './twitter.svg'
+import star2 from './star2.svg'
 
 export {
     arrowRight,
@@ -22,6 +23,7 @@ export {
     support,
     shieldTick,
     star,
+    star2,
     truckFast,
     twitter
 }
