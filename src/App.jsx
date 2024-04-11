@@ -3,6 +3,7 @@ import {
   CustomerReviews,
   Footer,
   PopularProducts,
+  RecipeBuilder,
   Services,
   SpecialOffer,
   Subscribe,
@@ -17,6 +18,9 @@ const App = () => (
     </section>
     <section className="padding">
       <PopularProducts />
+    </section>
+    <section className="padding">
+      <RecipeBuilder />
     </section>
     <section className="padding">
       <SuperQuality />
