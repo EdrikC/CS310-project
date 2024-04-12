@@ -9,12 +9,25 @@ import {
   Subscribe,
   SuperQuality} from './sections';
   import Nav from './components/Nav';
+  import { useEffect, useState } from 'react';
 
-const App = () => (
+const App = () => {
+  const [Test, setTest] = useState(0);
+  useEffect(() => {
+    fetch('/test')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data); // log the data
+        setTest(data.time);
+      });
+  }, []);
+  
+  return (
   <main className="relative bg-black text-white">
     <Nav />
     <section className="xl: padding-l wide:padding-r padding-b">
       <Hero />
+      <p>The time pulled from the Flask API is: {Test}</p>
     </section>
     <section className="padding">
       <PopularProducts />
@@ -38,6 +51,7 @@ const App = () => (
       <Footer />
     </section>
   </main>
-)
+  )
+}
 
 export default App;

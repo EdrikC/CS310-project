@@ -1,13 +1,14 @@
-from flask import Flask
-# from flask_cors import CORS
+from flask import Flask, jsonify
+from flask_cors import CORS, cross_origin
 import time
 
+
 app=Flask(__name__)
-# CORS(app)
+CORS(app)
 
 @app.route("/test")
-# @cross_origin()
+@cross_origin()
 def test_module():
-    return {'time': time.time()}
+    return jsonify({'time': time.time()})
 
 
