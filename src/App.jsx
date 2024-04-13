@@ -12,13 +12,14 @@ import {
   import { useEffect, useState } from 'react';
 
 const App = () => {
-  const [Test, setTest] = useState(0);
+  // Pulls all the keys and values from the /test endpoint for use in iteration.
+  const [Test, setTest] = useState([]);
   useEffect(() => {
     fetch('/test')
       .then(response => response.json())
       .then(data => {
         console.log(data); // log the data
-        setTest(data.time);
+        setTest(Object.keys(data).map(key => data[key]));
       });
   }, []);
   
@@ -27,7 +28,10 @@ const App = () => {
     <Nav />
     <section className="xl: padding-l wide:padding-r padding-b">
       <Hero />
-      <p>The time pulled from the Flask API is: {Test}</p>
+      {/* Iterates for (# of keys) and pulls each of their values from the /test endpoint. */}
+      {Test.map((value, index) => (
+        <p key={index}>The value pulled from the Flask API is: {value}</p>
+      ))}
     </section>
     <section className="padding">
       <PopularProducts />
