@@ -18,16 +18,21 @@ const App = () => {
       .then(response => response.json())
       .then(data => {
         console.log(data); // log the data
-        setTest(data.time);
+        setTest(Object.keys(data).map(key => data[key]));
       });
   }, []);
-  
+  const times = 5;
+  const testArray = Array(times).fill(Test);
+
+
   return (
   <main className="relative bg-black text-white">
     <Nav />
     <section className="xl: padding-l wide:padding-r padding-b">
       <Hero />
-      <p>The time pulled from the Flask API is: {Test}</p>
+      {Test.map((value, index) => (
+        <p key={index}>The value pulled from the Flask API is: {value}</p>
+      ))}
     </section>
     <section className="padding">
       <PopularProducts />
