@@ -70,7 +70,7 @@ const RecipeBuilder = () => {
     ));
 
     return (
-        <section id="home" className="w-full flex flex-row justify-center min-h-screen bg-black text-white">
+        <section id="recipes" className="w-full flex flex-row justify-center min-h-screen bg-black text-white">
             {selectedRecipe !== null && <div className="overlay" onClick={handleOverlayClick}></div>}
             <div className="relative w-2/5 flex flex-col justify-start items-center pt-28 border-r-4 border-white pr-5">
                 <h1 className="text-4xl font-bold">
