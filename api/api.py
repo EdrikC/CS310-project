@@ -6,6 +6,7 @@ import time
 app=Flask(__name__)
 CORS(app)
 
+# Demo API with 3 keys
 @app.route("/test")
 @cross_origin()
 def test_module():
