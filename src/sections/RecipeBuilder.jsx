@@ -46,7 +46,7 @@ const RecipeBuilder = () => {
             onClick={() => toggleHighlightFilters(index)}
             style={{ flex: '1 0 12.5%', margin: '5px' }} // Each button takes up 1/8th of the line
             className={`px-4 py-2 font-semibold text-white rounded-lg transition-colors ${
-                isHighlighted ? 'bg-blue-500' : 'bg-gray-300 hover:bg-gray-400 text-black'
+                isHighlighted ? 'bg-blue-500' : 'bg-gray-300 hover:bg-gray-400 text-gray-900'
             }`}
         >
             {filterButtonNames[index]}
@@ -60,7 +60,7 @@ const RecipeBuilder = () => {
             onClick={() => toggleHighlightCuisines(index)}
             style={{ flex: '1 0 12.5%', margin: '5px' }} // Each button takes up 1/8th of the line
             className={`px-4 py-2 font-semibold text-white rounded-lg transition-colors ${
-                isHighlighted ? 'bg-blue-500' : 'bg-gray-300 hover:bg-gray-400 text-black'
+                isHighlighted ? 'bg-blue-500' : 'bg-gray-300 hover:bg-gray-400 text-gray-900'
             }`}
         >
             {cuisineButtonNames[index]}
