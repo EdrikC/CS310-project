@@ -35,7 +35,7 @@ npm install react-awesome-reveal @emotion/react --save
 
 pip install pandas
 
-import requests
+pip install requests
 ```
 ### Run instructions from terminal
 **Make sure you are using the virtual environment for both terminals (there should be a .venv prefix in the terminal**)
