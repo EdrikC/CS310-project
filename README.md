@@ -33,8 +33,6 @@ pip install Flask-Cors
 
 npm install react-awesome-reveal @emotion/react --save
 
-pip install pandas
-
 pip install requests
 ```
 ### Run instructions from terminal
