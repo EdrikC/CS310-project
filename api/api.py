@@ -1,6 +1,6 @@
 from flask import Flask, jsonify
 from flask_cors import CORS, cross_origin
-import time
+from recipes import get_all_recipes
 
 
 app=Flask(__name__)

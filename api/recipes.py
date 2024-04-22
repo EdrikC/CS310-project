@@ -8,7 +8,7 @@ def make_api_request(url):
     else:
         return None
 
-# Fetch categories
+# Fetch all (14) categories
 def get_categories():
     url = "https://www.themealdb.com/api/json/v1/1/categories.php"
     data = make_api_request(url)
@@ -24,6 +24,14 @@ def get_recipetitle_by_category(category):
     else:
         return []
 
+# Return every recipe in each category (303 Total)
+def get_all_recipes():
+    all_recipes = []
+    for c in get_categories():
+        category_recipes = get_recipetitle_by_category(c)
+        for recipe in category_recipes:
+            all_recipes.append(recipe)
+    return all_recipes
 
 
 # Fetch recipes by category
@@ -66,36 +74,6 @@ def get_recipe_details(meal_id):
       }
   return None
 
-# Main process to fetch all recipes
-# def fetch_all_recipes():
-#     categories = get_categories()
-#     print(f"Fetched {len(categories)} categories.")
-#     all_recipes = []
-#     seen_ids = set()
-
-#     for category in categories:
-#         print(f"Processing category: {category}")
-#         meal_summaries = get_recipes_by_category(category)
-#         print(f"Found {len(meal_summaries)} meals in category {category}")
-#         for meal in meal_summaries:
-#             meal_id = meal['idMeal']
-#             if meal_id not in seen_ids:
-#                 print(f"Fetching details for meal ID: {meal_id}")
-#                 seen_ids.add(meal_id)
-#                 detailed_meal = get_recipe_details(meal_id)
-#                 if detailed_meal:
-#                     all_recipes.append(detailed_meal)
-                  
-#     df_recipes = pd.DataFrame(all_recipes)
-#     return df_recipes
-
-# Load all recipes into a DataFrame
-# df_recipes = fetch_all_recipes()
-
-print(get_categories())
-for c in get_categories():
-    print(get_recipetitle_by_category(c))
-
 # Test to get just 3 elements inside of a category object: Title, Thumbnail, MEALID.
 # value = get_recipes_by_category('beef')[0]
 # for key in value:
@@ -104,5 +82,6 @@ for c in get_categories():
 # print(f"The recipe is: {value['Title']}")
 
 
-get_recipetitle_by_category('beef')
+# Testing
+# print(type((get_all_recipes())))
 
