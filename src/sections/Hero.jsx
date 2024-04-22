@@ -24,8 +24,11 @@ const Hero = () => {
           <p className="font-monserrat text-slate-gray text-lg leading-8 mt-6 mb-14 sm:max-w-sm">QuickEatz is a place where you can find your next meal, based on whatever is left in your fridge. Use our variety of filters to find your next meal option.</p>
         </JackInTheBox>
         <Slide>
-          <Button label="Explore Options"
-          iconURL={arrowRight}/>
+          <Button
+            label="Explore Options"
+            iconURL={arrowRight}
+            href="#recipes"  // Add this line to pass the href prop
+          />
         </Slide>
 
         <div className="flex justify-starts items-start flex-wrap w-full mt-20 gap-16">

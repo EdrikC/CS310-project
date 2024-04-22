@@ -20,7 +20,10 @@ const SuperQuality = () => {
           <p className="mt-6 lg:max-w-lg info-text">Happy cooking!</p>
           <p className="mt-6 lg:max-w-lg info-text">-The QuickEatz Team</p>
           <div className="mt-11">
-            <Button label="View Recipes" />
+          <Button 
+            label="View Recipes" 
+            href="#recipes"  // Makes the button act as a link
+          />
           </div>
         </div>
 
