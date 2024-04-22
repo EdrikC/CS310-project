@@ -4,11 +4,10 @@ import { shoe5 } from '../assets/images';
 import { shoe6 } from '../assets/images';
 
 const RecipeBuilder = () => {
-    const times = 10;
+    const times = 304; // Number of recipes
     const testArray = Array(times).fill(null);
-    const images = [shoe5, shoe6]; //Image Array
     const [selectedRecipe, setSelectedRecipe] = useState(null);
-
+ 
     const handleRecipeClick = (index) => {
         if (selectedRecipe === index) {
             setSelectedRecipe(null); // Deselect if the same recipe is clicked again
@@ -22,12 +21,17 @@ const RecipeBuilder = () => {
     };
 
     // State for filters buttons
-    const [highlightedFilters, setHighlightedFilters] = useState(Array(18).fill(false));
-    const filterButtonNames = ['Potato', 'Carrot', 'Tomato', 'Bell Pepper', 'Lettuce', 'Rice', 'Onion', 'Garlic', 'Cucumber', 'Mushroom', 'Broccoli', 'Chicken', 'Corn', 'Fish', 'Pasta', 'Ground Beef', 'Pork', 'Tofu'];
+    const [highlightedFilters, setHighlightedFilters] = useState(Array(5).fill(false));
+    const filterButtonNames = ['Beef', 'Chicken', 'Goat', 'Lamb', 'Pork'];
 
     // State for cuisines buttons
-    const [highlightedCuisines, setHighlightedCuisines] = useState(Array(8).fill(false));
-    const cuisineButtonNames = ['Italian', 'Mexican', 'Chinese', 'Japanese', 'French', 'Indian', 'Thai', 'American'];
+    const [highlightedCuisines, setHighlightedCuisines] = useState(Array(9).fill(false));
+    const cuisineButtonNames = ['Pasta', 'Seafood', 'Breakfast', 'Starter', 'Dessert', 'Side', 'Vegetarian', 'Vegan','Miscellaneous'];
+
+    const titles = ["Title test 1", "Title test 2", "Hello"];
+    const descriptions = ["This would be the description. Ex. Doesn't this pasta look yummy. You can make it TODAY. If not, leave the website.", "This would be the description test 2. Ex. Doesn't this pasta look yummy. You can make it TODAY. If not, leave the website."];
+    const cookTimes = ["Cook Time: 10 mins", "Cook Time: 40 mins", "Cook Time: 50 mins", "Cook Time: 20 mins", "Cook Time: 30 mins"];
+    const images = [<img src="https://www.themealdb.com/images/media/meals/cuio7s1555492979.jpg" alt="food" />]; //Image Array
 
     // Function to toggle the highlighted state of a specific button for filters
     const toggleHighlightFilters = (index) => {
@@ -46,7 +50,7 @@ const RecipeBuilder = () => {
             onClick={() => toggleHighlightFilters(index)}
             style={{ flex: '1 0 12.5%', margin: '5px' }} // Each button takes up 1/8th of the line
             className={`px-4 py-2 font-semibold text-white rounded-lg transition-colors ${
-                isHighlighted ? 'bg-blue-500' : 'bg-gray-300 hover:bg-gray-400 text-gray-900'
+                isHighlighted ? 'bg-blue-500' : 'bg-gray-300 hover:bg-gray-400 text-black'
             }`}
         >
             {filterButtonNames[index]}
@@ -60,7 +64,7 @@ const RecipeBuilder = () => {
             onClick={() => toggleHighlightCuisines(index)}
             style={{ flex: '1 0 12.5%', margin: '5px' }} // Each button takes up 1/8th of the line
             className={`px-4 py-2 font-semibold text-white rounded-lg transition-colors ${
-                isHighlighted ? 'bg-blue-500' : 'bg-gray-300 hover:bg-gray-400 text-gray-900'
+                isHighlighted ? 'bg-blue-500' : 'bg-gray-300 hover:bg-gray-400 text-black'
             }`}
         >
             {cuisineButtonNames[index]}
@@ -72,7 +76,7 @@ const RecipeBuilder = () => {
             {selectedRecipe !== null && <div className="overlay" onClick={handleOverlayClick}></div>}
             <div className="relative w-full md:w-2/5 flex flex-col justify-start items-center pt-4 md:pt-28 border-b-4 md:border-b-0 md:border-r-4 border-white pr-5">
                 <h1 className="text-2xl md:text-4xl font-bold">
-                    <span className="whitespace-nowrap relative z-10 text-indigo-600">Ingredients</span>
+                    <span className="whitespace-nowrap relative z-10 text-indigo-600">Protein</span>
                 </h1>
                 <div className="flex flex-wrap justify-center items-center pt-2 md:pt-10">
                     {filterButtons}
@@ -94,11 +98,11 @@ const RecipeBuilder = () => {
                         className={`border-2 border-white text-white rounded-lg shadow-md p-2 md:p-4 transition-transform duration-300 ${selectedRecipe === index ? 'centerBox scale-110 md:scale-150' : ''}`}
                         style={{ cursor: 'pointer' }}
                         >
-                            <h1 className="font-bold">Deepak's Test</h1>
-                            <p>This would be the description. Ex. Doesn't this pasta look yummy. You can make it TODAY. If not, leave the website.</p>
+                            <h1 className="font-bold">{titles[index % titles.length]}</h1>
+                            <p>{descriptions[index % descriptions.length]}</p>
                             <br />
-                            <p>Cook Time: 40 mins</p>
-                            <img src={images[index % images.length]} alt={`Image for box ${index + 1}`}/>
+                            <p>{cookTimes[index % cookTimes.length]}</p>
+                            <img src={images[index % images.length].props.src} alt={`Image for box ${index + 1}`}/>
                         </div>
                     ))}
                 </div>

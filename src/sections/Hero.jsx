@@ -4,7 +4,7 @@ import ShoeCard from "../components/ShoeCard";
 import { arrowRight } from '../assets/icons';
 import { statistics, shoes } from '../constants';
 import { bigShoe1 } from "../assets/images";
-import { Fade } from "react-awesome-reveal";
+import { JackInTheBox, Slide, Zoom } from "react-awesome-reveal";
 
 /* Pro tip: When designing website, stick to around 3 colors and fonts to use to be consistent. */
 const Hero = () => {
@@ -15,16 +15,18 @@ const Hero = () => {
     /*w-full makes it take the full width of the screen smae with min-h-screen*/
     className="w-full flex xl:flex-row flex-col justify-center min-h-screen max-container bg-black text-white">
       <div className="relative xl:w-2/5 flex flex-col justify-center items-start max-xl:padding-x pt-28">
-        <Fade>
+        <JackInTheBox>
           <h1 className="mt-10 font-palanquin text-8xl max-sm:text-[72px] max-sm:leading-[82px] font-bold">
             <span className=" xl:whitespace-nowrap relative z-10 pr-10">Eat from</span>
             <br />
             <span className="text-indigo-600 inline-block mt-3">Whatever</span> Is In Your Fridge
           </h1>
           <p className="font-monserrat text-slate-gray text-lg leading-8 mt-6 mb-14 sm:max-w-sm">QuickEatz is a place where you can find your next meal, based on whatever is left in your fridge. Use our variety of filters to find your next meal option.</p>
+        </JackInTheBox>
+        <Slide>
           <Button label="Explore Options"
           iconURL={arrowRight}/>
-        </Fade>
+        </Slide>
 
         <div className="flex justify-starts items-start flex-wrap w-full mt-20 gap-16">
           {statistics.map((stat, index) => (
