@@ -1,6 +1,6 @@
 from flask import Flask, jsonify
 from flask_cors import CORS, cross_origin
-from recipes import get_all_recipes
+from recipes import get_all_recipetitles
 
 
 app=Flask(__name__)
@@ -10,6 +10,6 @@ CORS(app)
 @app.route("/test")
 @cross_origin()
 def test_module():
-    return jsonify(get_all_recipes())
+    return jsonify(get_all_recipetitles())
 
 

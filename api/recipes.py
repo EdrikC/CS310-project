@@ -15,6 +15,22 @@ def get_categories():
     return [category['strCategory'] for category in data['categories'] 
         if 'strCategory' in category and category['strCategory'] is not None]
 
+def get_meal_ids():
+    all_ids = []
+    for c in get_categories():
+        meal_id = id_puller(c)
+        for id in meal_id:
+            all_ids.append(id)
+    return all_ids
+
+def id_puller(category):
+    url = f"https://www.themealdb.com/api/json/v1/1/filter.php?c={category}"
+    data = make_api_request(url)
+    if data is not None:
+        return [meal['idMeal'] for meal in data['meals'] if 'idMeal' in meal and meal['idMeal'] is not None]
+    else:
+        return []
+
 # Fetch recipe titles by category
 def get_recipetitle_by_category(category):
     url = f"https://www.themealdb.com/api/json/v1/1/filter.php?c={category}"
@@ -25,7 +41,7 @@ def get_recipetitle_by_category(category):
         return []
 
 # Return every recipe in each category (303 Total)
-def get_all_recipes():
+def get_all_recipetitles():
     all_recipes = []
     for c in get_categories():
         category_recipes = get_recipetitle_by_category(c)
@@ -33,16 +49,21 @@ def get_all_recipes():
             all_recipes.append(recipe)
     return all_recipes
 
+# Iterate through every meal ID and pass that as an arg to get_recipe_details()
+def descriptions():
+    descriptions = []
+    for id in get_meal_ids():
+        descriptions.append(get_recipe_details(id))
+    return descriptions
 
 # Fetch recipes by category
-def get_allrecipedata_by_category(category):
-    url = f"https://www.themealdb.com/api/json/v1/1/filter.php?c={category}"
-    data = make_api_request(url)
-    if data is not None:
-        return [{'Title': meal['strMeal'], 'Thumbnail': meal['strMealThumb'], 'Meal ID': meal['idMeal']} for meal in data['meals']]
-    else:
-        return []
-
+# def get_allrecipedata_by_category(category):
+#     url = f"https://www.themealdb.com/api/json/v1/1/filter.php?c={category}"
+#     data = make_api_request(url)
+#     if data is not None:
+#         return [{'Title': meal['strMeal'], 'Thumbnail': meal['strMealThumb'], 'Meal ID': meal['idMeal']} for meal in data['meals']]
+#     else:
+#         return []
 
 # Fetch detailed recipe information by ID
 def get_recipe_details(meal_id):
@@ -75,7 +96,7 @@ def get_recipe_details(meal_id):
   return None
 
 # Test to get just 3 elements inside of a category object: Title, Thumbnail, MEALID.
-# value = get_recipes_by_category('beef')[0]
+# value = get_recipetitle_by_category('beef')[0]
 # for key in value:
 #     print(value[key])
 
@@ -83,5 +104,5 @@ def get_recipe_details(meal_id):
 
 
 # Testing
-# print(type((get_all_recipes())))
+# print(descriptions())
 

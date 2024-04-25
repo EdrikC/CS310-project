@@ -1,12 +1,22 @@
 import './RecipeBuilder.css';
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { shoe5 } from '../assets/images';
 import { shoe6 } from '../assets/images';
 
 const RecipeBuilder = () => {
-    const times = 304; // Number of recipes
+    const times = 303; // Number of recipes
     const testArray = Array(times).fill(null);
     const [selectedRecipe, setSelectedRecipe] = useState(null);
+    
+    const [Test, setTest] = useState([]);
+    useEffect(() => {
+        fetch('/test')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data); // log the data
+            setTest(Object.keys(data).map(key => data[key]));
+        });
+        }, []);
  
     const handleRecipeClick = (index) => {
         if (selectedRecipe === index) {
@@ -28,7 +38,7 @@ const RecipeBuilder = () => {
     const [highlightedCuisines, setHighlightedCuisines] = useState(Array(9).fill(false));
     const cuisineButtonNames = ['Pasta', 'Seafood', 'Breakfast', 'Starter', 'Dessert', 'Side', 'Vegetarian', 'Vegan','Miscellaneous'];
 
-    const titles = ["Title test 1", "Title test 2", "Hello"];
+    const titles = Test
     const descriptions = ["This would be the description. Ex. Doesn't this pasta look yummy. You can make it TODAY. If not, leave the website.", "This would be the description test 2. Ex. Doesn't this pasta look yummy. You can make it TODAY. If not, leave the website."];
     const cookTimes = ["Cook Time: 10 mins", "Cook Time: 40 mins", "Cook Time: 50 mins", "Cook Time: 20 mins", "Cook Time: 30 mins"];
     const images = [<img src="https://www.themealdb.com/images/media/meals/cuio7s1555492979.jpg" alt="food" />]; //Image Array
