@@ -1,7 +1,5 @@
 import './RecipeBuilder.css';
 import { useEffect, useState } from 'react';
-import { shoe5 } from '../assets/images';
-import { shoe6 } from '../assets/images';
 
 const RecipeBuilder = () => {
     const times = 303; // Number of recipes
