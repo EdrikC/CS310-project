@@ -1,5 +1,6 @@
 import Button from "../components/Button";
 import { shoe8 } from "../assets/images";
+import { Roll } from "react-awesome-reveal";
 
 const SuperQuality = () => {
   return (
@@ -28,12 +29,14 @@ const SuperQuality = () => {
         </div>
 
         <div className="flex-1 flex justify-center items-center">
+          <Roll>
           <img
             src={shoe8}
             alt="shoe8"
             width={570}
             height={522}
             className="object-contain" />
+          </Roll>
         </div>
     </section>
   )

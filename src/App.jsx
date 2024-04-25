@@ -10,6 +10,7 @@ import {
   SuperQuality} from './sections';
   import Nav from './components/Nav';
   import { useEffect, useState } from 'react';
+  import { Fade } from 'react-awesome-reveal';
 
 const App = () => {
   // Pulls all the keys and values from the /test endpoint for use in iteration.
@@ -37,10 +38,14 @@ const App = () => {
       <PopularProducts />
     </section>
     <section className="padding">
+      <Fade direction="left" duration={2500}>
       <RecipeBuilder />
+      </Fade>
     </section>
     <section className="padding">
+      <Fade direction='left' duration={2000}>
       <SuperQuality />
+      </Fade>
     </section>
     <section className="padding-x py-10">
       <Services />

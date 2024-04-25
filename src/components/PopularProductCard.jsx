@@ -1,9 +1,11 @@
 import { star } from "../assets/icons"
 import { star2 } from "../assets/icons"
+import { Fade } from "react-awesome-reveal"
 
 const PopularProductCard = ({imgURL, name, price, rating}) => {
   return (
     <div className="flex flex-1 flex-col w-full max-sm:w-full">
+        <Fade cascade damping={0.1}>
         <img
         src={imgURL}
         alt={name}
@@ -19,6 +21,7 @@ const PopularProductCard = ({imgURL, name, price, rating}) => {
         </div>
         <h3 className="mt-2 text-2xl leading-normal font-semibold font-palanquin">{name}</h3>
         <p className="mt-2 font-semibold font-montserrat text-pink-700 text-2xl leading-normal">{price}</p>
+        </Fade>
     </div>
   )
 }

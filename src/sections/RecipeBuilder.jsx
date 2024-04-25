@@ -1,5 +1,6 @@
 import './RecipeBuilder.css';
 import { useEffect, useState } from 'react';
+import { Fade } from 'react-awesome-reveal';
 
 const RecipeBuilder = () => {
     const times = 303; // Number of recipes

@@ -1,4 +1,5 @@
 import arrowRight from './arrow-right.svg'
+import arrowDown from './arrow-down.svg'
 import chevronLeft from './chevron-left.svg'
 import cheveronRight from './chevron-right.svg'
 import copyrightSign from './copyright-sign.svg'
@@ -14,6 +15,7 @@ import star2 from './star2.svg'
 
 export {
     arrowRight,
+    arrowDown,
     cheveronRight,
     chevronLeft,
     copyrightSign,
