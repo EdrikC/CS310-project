@@ -5,17 +5,34 @@ const RecipeBuilder = () => {
     const times = 303; // Number of recipes
     const testArray = Array(times).fill(null);
     const [selectedRecipe, setSelectedRecipe] = useState(null);
-
     const [Test, setTest] = useState([]);
+    const [imgs, setImgs] = useState([]);
+    
     useEffect(() => {
         fetch('/recipes')
         .then(response => response.json())
         .then(data => {
-            console.log(data); // log the data
+            console.log(data);
             setTest(Object.keys(data).map(key => data[key]));
+        })
+        .catch(error => {
+            console.error('Failed to fetch recipes:', error);
         });
-        }, []);
-
+    }, []);
+    
+    useEffect(() => {
+        fetch('/imgs')
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            setImgs(Object.keys(data).map(key => data[key]));
+        })
+        .catch(error => {
+            console.error('Failed to fetch images:', error);
+        });
+    }, []);
+    
+ 
     const handleRecipeClick = (index) => {
         if (selectedRecipe === index) {
             setSelectedRecipe(null); // Deselect if the same recipe is clicked again
@@ -38,8 +55,10 @@ const RecipeBuilder = () => {
 
     const titles = Test
     const descriptions = ["This would be the description. Ex. Doesn't this pasta look yummy. You can make it TODAY. If not, leave the website.", "This would be the description test 2. Ex. Doesn't this pasta look yummy. You can make it TODAY. If not, leave the website."];
-    const cookTimes = ["Cook Time: 10 mins", "Cook Time: 40 mins", "Cook Time: 50 mins", "Cook Time: 20 mins", "Cook Time: 30 mins"];
-    const images = [<img src="https://www.themealdb.com/images/media/meals/cuio7s1555492979.jpg" alt="food" />]; //Image Array
+    // const cookTimes = ["Cook Time: 10 mins", "Cook Time: 40 mins", "Cook Time: 50 mins", "Cook Time: 20 mins", "Cook Time: 30 mins"];
+    const images = imgs.map((imgUrl, index) => (
+        <img key={index} src={imgUrl} alt="food" />
+    ));     //Image Array
 
     // Function to toggle the highlighted state of a specific button for filters
     const toggleHighlightFilters = (index) => {
@@ -109,8 +128,10 @@ const RecipeBuilder = () => {
                             <h1 className="font-bold">{titles[index % titles.length]}</h1>
                             <p>{descriptions[index % descriptions.length]}</p>
                             <br />
-                            <p>{cookTimes[index % cookTimes.length]}</p>
-                            <img src={images[index % images.length].props.src} alt={`Image for box ${index + 1}`}/>
+                            {/* <p>{cookTimes[index % cookTimes.length]}</p> */}
+                            <div>
+                                {images[index % images.length]}
+                            </div>
                         </div>
                     ))}
                 </div>
