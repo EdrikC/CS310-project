@@ -38,9 +38,7 @@ const App = () => {
       <PopularProducts />
     </section>
     <section className="padding">
-      <Fade direction="left" duration={2500}>
       <RecipeBuilder />
-      </Fade>
     </section>
     <section className="padding">
       <Fade direction='left' duration={2000}>

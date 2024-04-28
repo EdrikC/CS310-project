@@ -1,12 +1,11 @@
 import './RecipeBuilder.css';
 import { useEffect, useState } from 'react';
-import { Fade } from 'react-awesome-reveal';
 
 const RecipeBuilder = () => {
     const times = 303; // Number of recipes
     const testArray = Array(times).fill(null);
     const [selectedRecipe, setSelectedRecipe] = useState(null);
-    
+
     const [Test, setTest] = useState([]);
     useEffect(() => {
         fetch('/test')
@@ -16,7 +15,7 @@ const RecipeBuilder = () => {
             setTest(Object.keys(data).map(key => data[key]));
         });
         }, []);
- 
+
     const handleRecipeClick = (index) => {
         if (selectedRecipe === index) {
             setSelectedRecipe(null); // Deselect if the same recipe is clicked again
@@ -104,7 +103,7 @@ const RecipeBuilder = () => {
                         <div
                         key={index}
                         onClick={() => handleRecipeClick(index)}
-                        className={`border-2 border-white text-white rounded-lg shadow-md p-2 md:p-4 transition-transform duration-300 ${selectedRecipe === index ? 'centerBox scale-110 md:scale-150' : ''}`}
+                        className={`border-2 border-white text-white rounded-lg shadow-md p-2 md:p-4 transition-transform duration-300 ${selectedRecipe === index ? 'centerBox scale-110 md:scale-120' : ''}`}
                         style={{ cursor: 'pointer' }}
                         >
                             <h1 className="font-bold">{titles[index % titles.length]}</h1>
