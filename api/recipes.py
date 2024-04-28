@@ -15,14 +15,7 @@ def get_categories():
     return [category['strCategory'] for category in data['categories'] 
         if 'strCategory' in category and category['strCategory'] is not None]
 
-def get_meal_ids():
-    all_ids = []
-    for c in get_categories():
-        meal_id = id_puller(c)
-        for id in meal_id:
-            all_ids.append(id)
-    return all_ids
-
+# Helper function to fetch the meal id
 def id_puller(category):
     url = f"https://www.themealdb.com/api/json/v1/1/filter.php?c={category}"
     data = make_api_request(url)
@@ -39,8 +32,17 @@ def get_recipetitle_by_category(category):
         return [meal['strMeal'] for meal in data['meals'] if 'strMeal' in meal and meal['strMeal'] is not None]
     else:
         return []
+    
+# Helper function to fetch meal img url
+def get_recipeimg_by_category(category):
+    url = f"https://www.themealdb.com/api/json/v1/1/filter.php?c={category}"
+    data = make_api_request(url)
+    if data is not None:
+        return [meal['strMealThumb'] for meal in data['meals'] if 'strMeal' in meal and meal['strMealThumb'] is not None]
+    else:
+        return []
 
-# Return every recipe in each category (303 Total)
+# Return every recipe in each category (303 Total) - TITLE
 def get_all_recipetitles():
     all_recipes = []
     for c in get_categories():
@@ -48,6 +50,24 @@ def get_all_recipetitles():
         for recipe in category_recipes:
             all_recipes.append(recipe)
     return all_recipes
+
+# Returns every meal id in each category (303 Total) - MEAL_ID
+def get_meal_ids():
+    all_ids = []
+    for c in get_categories():
+        meal_id = id_puller(c)
+        for id in meal_id:
+            all_ids.append(id)
+    return all_ids
+
+# Returns every meal img url in each category (303 Total) - IMG_URL
+def get_img_url():
+    all_imgs = []
+    for c in get_categories():
+        img_url = get_recipeimg_by_category(c)
+        for img in img_url:
+            all_imgs.append(img)
+    return all_imgs
 
 # Iterate through every meal ID and pass that as an arg to get_recipe_details()
 def descriptions():
@@ -104,5 +124,5 @@ def get_recipe_details(meal_id):
 
 
 # Testing
-# print(descriptions())
+# print(get_img_url())
 

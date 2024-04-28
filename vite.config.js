@@ -6,7 +6,8 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      '/test': 'http://localhost:8000',
+      '/recipes': 'http://localhost:8000',
+      '/imgs': 'http://localhost:8000',
     },
   },
 })

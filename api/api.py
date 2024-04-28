@@ -1,15 +1,19 @@
 from flask import Flask, jsonify
 from flask_cors import CORS, cross_origin
-from recipes import get_all_recipetitles
+from recipes import get_all_recipetitles, get_img_url
 
 
 app=Flask(__name__)
 CORS(app)
 
-# Demo API fetching from MealDB API
-@app.route("/test")
+# Fetches the (sorted) titles from the MealDB API and serves them as an API to React.
+@app.route("/recipes")
 @cross_origin()
 def test_module():
     return jsonify(get_all_recipetitles())
 
-
+# Fetches the img_urls from the MealDB API and serves them as an API to React.
+@app.route("/imgs")
+@cross_origin()
+def img_urls():
+    return jsonify(get_img_url())

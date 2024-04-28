@@ -8,7 +8,7 @@ const RecipeBuilder = () => {
 
     const [Test, setTest] = useState([]);
     useEffect(() => {
-        fetch('/test')
+        fetch('/recipes')
         .then(response => response.json())
         .then(data => {
             console.log(data); // log the data
