@@ -3,11 +3,11 @@ import './RecipeBuilder.css';
 
 const RecipeBuilder = () => {
     const [selectedRecipe, setSelectedRecipe] = useState(null);
-    const [recipes, setRecipes] = useState([]); // Array to hold all fetched recipes
-    const [displayRecipes, setDisplayRecipes] = useState([]); // Array to hold recipes to be displayed
+    const [recipes, setRecipes] = useState([]);
+    const [displayRecipes, setDisplayRecipes] = useState([]);
     const [imgs, setImgs] = useState([]);
-    const [activeFilter, setActiveFilter] = useState('All'); // State to track the active filter
-    const [filteredImgs, setFilteredImgs] = useState([]); // Array to hold filtered images
+    const [activeFilter, setActiveFilter] = useState('All');
+    const [filteredImgs, setFilteredImgs] = useState([]);
 
     useEffect(() => {
         fetch('/recipes')
@@ -26,114 +26,100 @@ const RecipeBuilder = () => {
         fetch('/imgs')
         .then(response => response.json())
         .then(data => {
-            const dataWithimgs = data.map((item, i) => {
-                return { id: i + 1, name: item };
-            });
-            setImgs(dataWithimgs);
-            setFilteredImgs(dataWithimgs); // Set filtered images to all images on initial load
+            setImgs(data.map((item, i) => ({ id: i + 1, name: item })));
+            setFilteredImgs(data);
         })
         .catch(error => console.error('Failed to fetch images:', error));
     }, []);
 
     const handleRecipeClick = (event, recipeId) => {
-        event.stopPropagation(); // This prevents the click from propagating to the overlay
+        event.stopPropagation();
         setSelectedRecipe(selectedRecipe === recipeId ? null : recipeId);
     };
 
     const handleOverlayClick = () => {
-        setSelectedRecipe(null); // Reset selected recipe when overlay is clicked
+        setSelectedRecipe(null);
     };
 
     const handleFilterClick = filterType => {
         setActiveFilter(filterType);
         let filteredRecipes;
         let filteredImages;
-        switch(filterType) {
-          case 'Beef':
-            filteredRecipes = recipes.slice(0, 47);
-            filteredImages = imgs.slice(0, 47);
-            break;
-          case 'Chicken':
-            filteredRecipes = recipes.slice(47, 82);
-            filteredImages = imgs.slice(47, 82);
-            break;
-            case 'Dessert':
-            filteredRecipes = recipes.slice(82, 146);
-            filteredImages = imgs.slice(82, 146);
-            break;
-            case 'Lamb':
-            filteredRecipes = recipes.slice(147, 162);
-            filteredImages = imgs.slice(147, 162);
-            break;
-            case 'Miscellaneous':
-            filteredRecipes = recipes.slice(163, 174);
-            filteredImages = imgs.slice(163, 174);
-            break;
-            case 'Pasta':
-            filteredRecipes = recipes.slice(175, 183);
-            filteredImages = imgs.slice(175, 183);
-            break;
-            case 'Pork':
-            filteredRecipes = recipes.slice(184, 201);
-            filteredImages = imgs.slice(184, 201);
-            break;
-            case 'Seafood':
-            filteredRecipes = recipes.slice(202, 231);
-            filteredImages = imgs.slice(202, 231);
-            break;
-            case 'Side':
-            filteredRecipes = recipes.slice(232, 257);
-            filteredImages = imgs.slice(232, 257);
-            break;
-            case 'Starter':
-            filteredRecipes = recipes.slice(258, 284);
-            filteredImages = imgs.slice(258, 284);
-            break;
-            case 'Vegan':
-            filteredRecipes = recipes.slice(285, 291);
-            filteredImages = imgs.slice(285, 291);
-            break;
-            case 'Vegetarian':
-            filteredRecipes = recipes.slice(285, 294);
-            filteredImages = imgs.slice(285, 294);
-            break;
-            case 'Breakfast':
-            filteredRecipes = recipes.slice(295, 302);
-            filteredImages = imgs.slice(295, 302);
-            break;
-            case 'Goat':
-            filteredRecipes = recipes.slice(302, 303);
-            filteredImages = imgs.slice(302, 303);
-            break;
-          default:
-            if (filterType === 'All') {
-                filteredRecipes = recipes;
-                filteredImages = imgs;
-            } else {
-                return; // Do nothing if filter type is not recognized
-            }
+    
+        // Assuming your recipes and images are initially sorted in the same order
+        // and can be filtered based on these hardcoded ranges:
+        const filterRanges = {
+            'See All Recipes': [0, recipes.length],
+            'Beef': [0, 47],
+            'Chicken': [47, 82],
+            'Lamb': [147, 162],
+            'Pork': [184, 201],
+            'Goat': [302, 303],
+            'Pasta': [175, 183],
+            'Seafood': [202, 231],
+            'Side': [232, 257],
+            'Starter': [258, 284],
+            'Vegan': [285, 291],
+            'Vegetarian': [285, 294],
+            'Breakfast': [295, 302],
+            'Lunch': [0, 257],
+            'Dinner': [258, 285],
+            'Dessert': [82, 146],
+            'Miscellaneous': [163, 174]
+        };
+    
+        if (filterRanges[filterType]) {
+            const [start, end] = filterRanges[filterType];
+            filteredRecipes = recipes.slice(start, end);
+            filteredImages = imgs.slice(start, end);
+        } else {
+            // If filterType does not match, default to showing all
+            filteredRecipes = recipes;
+            filteredImages = imgs;
         }
+    
         setDisplayRecipes(filteredRecipes);
-        setFilteredImgs(filteredImages); // Update the filtered images
+        setFilteredImgs(filteredImages);
     };
+    
+    const allFilter = ['See All Recipes'];
+    const proteinFilters = ['Beef', 'Chicken', 'Lamb', 'Pork', 'Goat'];
+    const cuisineFilters = ['Pasta', 'Seafood', 'Side', 'Starter'];
+    const mealTimesFilters= ['Breakfast', 'Lunch', 'Dinner', 'Dessert',];
+    const otherFilters = ['Vegan', 'Vegetarian',  'Miscellaneous'];
 
-    const images = filteredImgs.map((img, index) => <img key={index} src={img.name} alt="food" />);
-    const descriptions = ["This would be the description. Ex. Doesn't this pasta look yummy. You can make it TODAY. If not, leave the website.", "This would be the description test 2. Ex. Doesn't this pasta look yummy. You can make it TODAY. If not, leave the website."];
+    const renderFilterButtons = (filterList) => (
+        filterList.map((type, index) => (
+            <button key={index} onClick={() => handleFilterClick(type)} className={`px-4 py-2 font-semibold rounded-lg transition-colors ${activeFilter === type ? 'bg-blue-500 text-white' : 'bg-gray-300 hover:bg-gray-400 text-black'}`}
+            style={{ flex: '1 0 auto', margin: '5px' }}>
+                {type}
+            </button>
+        ))
+    );
 
-
-    const filterButtonNames = ['All', 'Beef', 'Chicken', 'Lamb', 'Pork', 'Goat', 'Pasta', 'Seafood', 'Side', 'Starter', 'Vegan', 'Vegetarian', 'Breakfast', 'Dessert', 'Miscellaneous'];
-    const filterButtons = filterButtonNames.map((type, index) => (
-        <button key={index} onClick={() => handleFilterClick(type)} className={`px-4 py-2 font-semibold rounded-lg transition-colors ${activeFilter === type ? 'bg-blue-500 text-white' : 'bg-gray-300 hover:bg-gray-400 text-black'}`}
-        style={{ flex: '1 0 auto', margin: '5px' }}>
-            {type}
-        </button>
-    ));
     return (
         <section id="recipebuilder" className="w-full flex flex-col md:flex-row justify-center min-h-screen bg-black text-white pt-40">
             {selectedRecipe !== null && <div className="overlay" onClick={handleOverlayClick}></div>}
             <div className="relative w-full md:w-2/5 flex flex-col justify-start items-center pt-4 md:pt-28 border-b-4 md:border-b-0 md:border-r-4 border-white pr-5">
-                <h1 className="text-2xl md:text-4xl font-bold"><span className="whitespace-nowrap relative z-10 text-indigo-600">Filters</span></h1>
-                <div className="flex flex-wrap justify-center items-center pt-2 md:pt-10">{filterButtons}</div>
+                <div className="flex flex-wrap justify-center items-center pt-2 md:pt-10">
+                    {renderFilterButtons(allFilter)}
+                </div>
+                <h1 className="text-xl md:text-4xl font-bold text-indigo-600 -mb-10">Protein</h1>
+                <div className="flex flex-wrap justify-center items-center pt-2 md:pt-10">
+                    {renderFilterButtons(proteinFilters)}
+                </div>
+                <h1 className="text-2xl md:text-4xl font-bold text-indigo-600 pt-5 -mb-10">Meal Types</h1>
+                <div className="flex flex-wrap justify-center items-center pt-2 md:pt-10">
+                    {renderFilterButtons(cuisineFilters)}
+                </div>
+                <h1 className="text-2xl md:text-4xl font-bold text-indigo-600 pt-5 -mb-10">Meal Times</h1>
+                <div className="flex flex-wrap justify-center items-center pt-2 md:pt-10">
+                    {renderFilterButtons(mealTimesFilters)}
+                </div>
+                <h1 className="text-2xl md:text-4xl font-bold text-indigo-600 pt-5 -mb-10">Other</h1>
+                <div className="flex flex-wrap justify-center items-center pt-2 md:pt-10">
+                    {renderFilterButtons(otherFilters)}
+                </div>
             </div>
             <div className="relative w-full md:w-3/5 flex flex-col justify-start items-center pt-4 md:pt-28">
                 <h1 className="text-2xl md:text-4xl font-bold text-indigo-600">Recipes</h1>
@@ -144,10 +130,9 @@ const RecipeBuilder = () => {
                             ${selectedRecipe === item.id ? 'centerBox scale-110 md:scale-150' : ''}`}
                             onClick={(e) => handleRecipeClick(e, item.id)}>
                             <h1 className="font-bold">{item.name}</h1>
-                            <p>{descriptions[index % descriptions.length]}</p>
-                            <div>{images[index]}</div>
+                            <p>{'This is a placeholder description for the recipe.'}</p>
+                            <img src={imgs[index].name} alt="food" />
                         </div>
-
                     ))}
                 </div>
             </div>
