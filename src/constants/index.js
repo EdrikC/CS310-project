@@ -25,7 +25,7 @@ export const shoes = [
 
 export const statistics = [
     { value: '1k+', label: 'Reviews' },
-    { value: '500+', label: 'Recipes' },
+    { value: '300+', label: 'Recipes' },
     { value: '250k+', label: 'Customers' },
 ];
 
