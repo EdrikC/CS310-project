@@ -29,9 +29,11 @@ const RecipeBuilder = () => {
                 return { id: i + 1, name: item };
             });
             setImgs(dataWithimgs);
+            setFilteredImgs(dataWithimgs); // Set filtered images to all images on initial load
         })
         .catch(error => console.error('Failed to fetch images:', error));
     }, []);
+    
 
     const handleFilterClick = filterType => {
         setActiveFilter(filterType);
@@ -47,16 +49,60 @@ const RecipeBuilder = () => {
             filteredImages = imgs.slice(47, 82);
             break;
             case 'Dessert':
-            filtered = recipes.slice(82, 147);
-            filteredImages = imgs.slice(82, 147);
+            filteredRecipes = recipes.slice(82, 146);
+            filteredImages = imgs.slice(82, 146);
             break;
             case 'Lamb':
-            filtered = recipes.slice(147, 162);
+            filteredRecipes = recipes.slice(147, 162);
             filteredImages = imgs.slice(147, 162);
             break;
+            case 'Miscellaneous':
+            filteredRecipes = recipes.slice(163, 174);
+            filteredImages = imgs.slice(163, 174);
+            break;
+            case 'Pasta':
+            filteredRecipes = recipes.slice(175, 183);
+            filteredImages = imgs.slice(175, 183);
+            break;
+            case 'Pork':
+            filteredRecipes = recipes.slice(184, 201);
+            filteredImages = imgs.slice(184, 201);
+            break;
+            case 'Seafood':
+            filteredRecipes = recipes.slice(202, 231);
+            filteredImages = imgs.slice(202, 231);
+            break;
+            case 'Side':
+            filteredRecipes = recipes.slice(232, 257);
+            filteredImages = imgs.slice(232, 257);
+            break;
+            case 'Starter':
+            filteredRecipes = recipes.slice(258, 284);
+            filteredImages = imgs.slice(258, 284);
+            break;
+            case 'Vegan':
+            filteredRecipes = recipes.slice(285, 291);
+            filteredImages = imgs.slice(285, 291);
+            break;
+            case 'Vegetarian':
+            filteredRecipes = recipes.slice(285, 294);
+            filteredImages = imgs.slice(285, 294);
+            break;
+            case 'Breakfast':
+            filteredRecipes = recipes.slice(295, 302);
+            filteredImages = imgs.slice(295, 302);
+            break;
+            case 'Goat':
+            filteredRecipes = recipes.slice(302, 303);
+            filteredImages = imgs.slice(302, 303);
+            break;
           default:
-            filteredRecipes = recipes;
-            filteredImages = imgs;
+            if (filterType === 'All') {
+                filteredRecipes = recipes;
+                filteredImages = imgs;
+            } else {
+                return; // Do nothing if filter type is not recognized
+            }
         }
         setDisplayRecipes(filteredRecipes);
         setFilteredImgs(filteredImages); // Update the filtered images
@@ -68,7 +114,7 @@ const RecipeBuilder = () => {
     const descriptions = ["This would be the description. Ex. Doesn't this pasta look yummy. You can make it TODAY. If not, leave the website.", "This would be the description test 2. Ex. Doesn't this pasta look yummy. You can make it TODAY. If not, leave the website."];
 
 
-    const filterButtonNames = ['All', 'Beef', 'Chicken', 'Goat', 'Lamb', 'Pork'];
+    const filterButtonNames = ['All', 'Beef', 'Chicken', 'Dessert', 'Lamb', 'Miscellaneous', 'Pasta', 'Pork', 'Seafood', 'Side', 'Starter', 'Vegan', 'Vegetarian', 'Breakfast', 'Goat'];
     const filterButtons = filterButtonNames.map((type, index) => (
         <button key={index} onClick={() => handleFilterClick(type)} className={`px-4 py-2 font-semibold text-white rounded-lg transition-colors ${activeFilter === type ? 'bg-blue-500' : 'bg-gray-300 hover:bg-gray-400'}`} style={{ flex: '1 0 auto', margin: '5px' }}>
             {type}
