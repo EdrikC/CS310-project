@@ -132,7 +132,7 @@ const RecipeBuilder = () => {
         <section id="recipebuilder" className="w-full flex flex-col md:flex-row justify-center min-h-screen bg-black text-white pt-40">
             {selectedRecipe !== null && <div className="overlay" onClick={handleOverlayClick}></div>}
             <div className="relative w-full md:w-2/5 flex flex-col justify-start items-center pt-4 md:pt-28 border-b-4 md:border-b-0 md:border-r-4 border-white pr-5">
-                <h1 className="text-2xl md:text-4xl font-bold"><span className="whitespace-nowrap relative z-10 text-indigo-600">Protein</span></h1>
+                <h1 className="text-2xl md:text-4xl font-bold"><span className="whitespace-nowrap relative z-10 text-indigo-600">Filters</span></h1>
                 <div className="flex flex-wrap justify-center items-center pt-2 md:pt-10">{filterButtons}</div>
             </div>
             <div className="relative w-full md:w-3/5 flex flex-col justify-start items-center pt-4 md:pt-28">
