@@ -123,7 +123,7 @@ const RecipeBuilder = () => {
             </div>
             <div className="relative w-full md:w-3/5 flex flex-col justify-start items-center pt-4 md:pt-28">
                 <h1 className="text-2xl md:text-4xl font-bold text-indigo-600">Recipes</h1>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 p-4 md:p-10 justify-center">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 p-4 md:p-10 justify-center">
                     {displayRecipes.map((item, index) => (
                         <div key={index}
                             className={`border-2 border-white text-white rounded-lg shadow-md p-2 md:p-4 transition-transform duration-300
