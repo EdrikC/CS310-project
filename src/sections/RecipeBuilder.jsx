@@ -33,7 +33,7 @@ const RecipeBuilder = () => {
         })
         .catch(error => console.error('Failed to fetch images:', error));
     }, []);
-    
+
 
     const handleFilterClick = filterType => {
         setActiveFilter(filterType);
@@ -107,7 +107,7 @@ const RecipeBuilder = () => {
         setDisplayRecipes(filteredRecipes);
         setFilteredImgs(filteredImages); // Update the filtered images
     };
-    
+
 
     const handleOverlayClick = () => setSelectedRecipe(null);
     const images = filteredImgs.map((img, index) => <img key={index} src={img.name} alt="food" />);
@@ -122,7 +122,7 @@ const RecipeBuilder = () => {
         </button>
     ));
     return (
-        <section id="recipes" className="w-full flex flex-col md:flex-row justify-center min-h-screen bg-black text-white">
+        <section id="recipebuilder" className="w-full flex flex-col md:flex-row justify-center min-h-screen bg-black text-white pt-40">
             {selectedRecipe !== null && <div className="overlay" onClick={handleOverlayClick}></div>}
             <div className="relative w-full md:w-2/5 flex flex-col justify-start items-center pt-4 md:pt-28 border-b-4 md:border-b-0 md:border-r-4 border-white pr-5">
                 <h1 className="text-2xl md:text-4xl font-bold"><span className="whitespace-nowrap relative z-10 text-indigo-600">Protein</span></h1>
