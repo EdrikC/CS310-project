@@ -8,6 +8,7 @@ export default defineConfig({
     proxy: {
       '/recipes': 'http://localhost:8000',
       '/imgs': 'http://localhost:8000',
+      '/sortedrecipes': 'http://localhost:8000',
     },
   },
 })

@@ -1,4 +1,5 @@
 import requests
+from merge import merge_sort
 
 # Function to make API requests
 def make_api_request(url):
@@ -50,6 +51,15 @@ def get_all_recipetitles():
         for recipe in category_recipes:
             all_recipes.append(recipe)
     return all_recipes
+
+# Return every recipe in each category sorted in alphebetical order (303 Total) - Mergesort TITLE
+def merge_sort_recipetitles():
+    all_recipes = []
+    for c in get_categories():
+        category_recipes = get_recipetitle_by_category(c)
+        for recipe in category_recipes:
+            all_recipes.append(recipe)
+    return merge_sort(all_recipes)
 
 # Returns every meal id in each category (303 Total) - MEAL_ID
 def get_meal_ids():
@@ -123,6 +133,9 @@ def get_recipe_details(meal_id):
 # print(f"The recipe is: {value['Title']}")
 
 
-# Testing
-# print(get_img_url())
+# # Testing
+# print(f"Non sorted:\n")
+# print(get_all_recipetitles())
+# print(f"\n Mergesorted:\n")
+# print(merge_sort_recipetitles())
 
