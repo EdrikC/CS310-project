@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import './RecipeBuilder.css';
 
 const RecipeBuilder = () => {
     const [selectedRecipe, setSelectedRecipe] = useState(null);
@@ -34,6 +35,14 @@ const RecipeBuilder = () => {
         .catch(error => console.error('Failed to fetch images:', error));
     }, []);
 
+    const handleRecipeClick = (event, recipeId) => {
+        event.stopPropagation(); // This prevents the click from propagating to the overlay
+        setSelectedRecipe(selectedRecipe === recipeId ? null : recipeId);
+    };
+
+    const handleOverlayClick = () => {
+        setSelectedRecipe(null); // Reset selected recipe when overlay is clicked
+    };
 
     const handleFilterClick = filterType => {
         setActiveFilter(filterType);
@@ -108,8 +117,6 @@ const RecipeBuilder = () => {
         setFilteredImgs(filteredImages); // Update the filtered images
     };
 
-
-    const handleOverlayClick = () => setSelectedRecipe(null);
     const images = filteredImgs.map((img, index) => <img key={index} src={img.name} alt="food" />);
     const descriptions = ["This would be the description. Ex. Doesn't this pasta look yummy. You can make it TODAY. If not, leave the website.", "This would be the description test 2. Ex. Doesn't this pasta look yummy. You can make it TODAY. If not, leave the website."];
 
@@ -132,12 +139,15 @@ const RecipeBuilder = () => {
                 <h1 className="text-2xl md:text-4xl font-bold text-indigo-600">Recipes</h1>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 p-4 md:p-10 justify-center">
                     {displayRecipes.map((item, index) => (
-                        <div key={index} className="border-2 border-white text-white rounded-lg shadow-md p-2 md:p-4 transition-transform duration-300">
+                        <div key={index}
+                            className={`border-2 border-white text-white rounded-lg shadow-md p-2 md:p-4 transition-transform duration-300
+                            ${selectedRecipe === item.id ? 'centerBox scale-110 md:scale-150' : ''}`}
+                            onClick={(e) => handleRecipeClick(e, item.id)}>
                             <h1 className="font-bold">{item.name}</h1>
                             <p>{descriptions[index % descriptions.length]}</p>
-                            <div>{images[index]}</div> {/* Render only the corresponding image */}
-                            {/* More content here */}
+                            <div>{images[index]}</div>
                         </div>
+
                     ))}
                 </div>
             </div>
