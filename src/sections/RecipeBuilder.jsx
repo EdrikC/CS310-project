@@ -116,7 +116,8 @@ const RecipeBuilder = () => {
 
     const filterButtonNames = ['All', 'Beef', 'Chicken', 'Lamb', 'Pork', 'Goat', 'Pasta', 'Seafood', 'Side', 'Starter', 'Vegan', 'Vegetarian', 'Breakfast', 'Dessert', 'Miscellaneous'];
     const filterButtons = filterButtonNames.map((type, index) => (
-        <button key={index} onClick={() => handleFilterClick(type)} className={`px-4 py-2 font-semibold text-white rounded-lg transition-colors ${activeFilter === type ? 'bg-blue-500' : 'bg-gray-300 hover:bg-gray-400'}`} style={{ flex: '1 0 auto', margin: '5px' }}>
+        <button key={index} onClick={() => handleFilterClick(type)} className={`px-4 py-2 font-semibold rounded-lg transition-colors ${activeFilter === type ? 'bg-blue-500 text-white' : 'bg-gray-300 hover:bg-gray-400 text-black'}`}
+        style={{ flex: '1 0 auto', margin: '5px' }}>
             {type}
         </button>
     ));
